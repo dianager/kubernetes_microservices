@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-service
+spec:
+  selector:
+    app: posts # pod label
+  type: NodePort
+  ports:
+  - name: posts # pod label
+    protocol: TCP
+    port: 4000
+    targetPort:  4000 # port used in the application (container)
+    nodePort: 30100

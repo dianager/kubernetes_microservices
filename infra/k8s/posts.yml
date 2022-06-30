@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  posts-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posts # pod label
+  template:
+    metadata:
+      labels:
+        app: posts # NAME FOR OUR POD
+    spec:
+      # configuration for pod
+      containers:
+      - name: posts
+        image: 199619961234/posts:latest
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-cluster-ip-service
+spec:
+  selector:
+    app: posts # pod label
+  ports:
+  - name: posts # pod label
+    protocol: TCP
+    port: 4000
+    targetPort:  4000 # port used in the application (container)
