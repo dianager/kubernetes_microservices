@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  moderation-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moderation # pod label
+  template:
+    metadata:
+      labels:
+        app: moderation # NAME FOR OUR POD
+    spec:
+      # configuration for pod
+      containers:
+      - name: moderation
+        image: 199619961234/moderation:latest
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderation-cluster-ip-service
+spec:
+  selector:
+    app: moderation # pod label
+  ports:
+  - name: moderation # pod label
+    protocol: TCP
+    port: 4003
+    targetPort:  4003 # port used in the application (container)

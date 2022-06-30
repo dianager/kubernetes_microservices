@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  query-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query # pod label
+  template:
+    metadata:
+      labels:
+        app: query # NAME FOR OUR POD
+    spec:
+      # configuration for pod
+      containers:
+      - name: query
+        image: 199619961234/query:latest
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-cluster-ip-service
+spec:
+  selector:
+    app: query # pod label
+  ports:
+  - name: query # pod label
+    protocol: TCP
+    port: 4002
+    targetPort:  4002 # port used in the application (container)
