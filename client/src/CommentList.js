@@ -14,7 +14,7 @@ const CommentList = ({ comments }) => {
     }
 
     if (status === "rejected") {
-      content = "This comment as been granted rejected";
+      content = "This comment has been rejected";
     }
     return <li key={comment.id}>{content}</li>;
   });

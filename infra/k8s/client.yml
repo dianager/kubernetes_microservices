@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client # pod label
+  template:
+    metadata:
+      labels:
+        app: client # NAME FOR OUR POD
+    spec:
+      # configuration for pod
+      containers:
+      - name: client
+        image: 199619961234/client:latest
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-cluster-ip-service
+spec:
+  selector:
+    app: client # pod label
+  ports:
+  - name: client # pod label
+    protocol: TCP
+    port: 3000
+    targetPort:  3000 # port used in the application (container)
